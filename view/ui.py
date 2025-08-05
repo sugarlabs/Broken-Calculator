@@ -181,11 +181,12 @@ class CalculatorUI:
         left_vbox.set_vexpand(True)
         left_vbox.set_margin_right(10)
 
-        self.equation_display = Gtk.Label(label="0")
+        self.equation_display = Gtk.Entry()
         self.equation_display.set_name("equation_display")
-        self.equation_display.set_halign(Gtk.Align.END)
+        self.equation_display.set_halign(Gtk.Align.FILL)
         self.equation_display.set_valign(Gtk.Align.CENTER)
         self.equation_display.set_hexpand(True)
+        self.equation_display.set_text("0")
 
         display_frame = Gtk.Frame()
         display_frame.set_name("display_frame")

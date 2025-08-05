@@ -80,10 +80,29 @@ class BrokenCalculator(Activity):
     def _connect_signals(self):
         """Connects widget signals to their handler methods."""
         self.new_game_button.connect("clicked", self._on_new_game_clicked)
+        self.ui.equation_display.connect("activate", self._on_entry_activate)
+        self.ui.equation_display.connect("changed", self._on_entry_changed)
 
         # Connect all the calculator pad buttons from the UI instance
         for value, button in self.ui.buttons.items():
             button.connect("clicked", self._on_button_clicked)
+    
+    def _on_entry_activate(self, entry):
+        """Handle Enter key press to evaluate."""
+        if self.game.game_completed:
+            return
+
+        self.game.current_equation = entry.get_text()
+        error_message = self.game.submit_equation()
+        if error_message:
+            print(f"Error submitting equation: {error_message}")
+            self._show_error_dialog(error_message)
+        self._update_ui_from_gamestate()
+
+    def _on_entry_changed(self, entry):
+        """Update internal state as user types."""
+        if not self.game.game_completed:
+            self.game.current_equation = entry.get_text()
 
     def _on_button_clicked(self, button):
         value = button.game_value
@@ -111,9 +130,7 @@ class BrokenCalculator(Activity):
             self.game.current_equation.replace("*", "×")
             .replace("/", "÷")
         )
-        self.ui.equation_display.set_text(
-            display_text if display_text else "0"
-        )
+        self.ui.equation_display.set_text(display_text)
 
         # Update game info using widgets from the ui object
         self.ui.target_label.set_text(str(self.game.target_number))
