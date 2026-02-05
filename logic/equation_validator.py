@@ -186,6 +186,10 @@ class EquationValidator:
         if re.search(r"[^0-9+\-*/().\s]", equation):
             result["error"] = "Invalid characters in equation"
             return result
+        # Disallow unary plus to match safe_eval behaviour
+        if re.search(r"(^|\(|\s)\+", equation) :
+            result["error"] = "Unary plus is not allowed"
+            return result
         try:
             value = safe_eval(equation)
             result["value"] = value
