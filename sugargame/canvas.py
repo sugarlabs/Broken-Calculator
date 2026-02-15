@@ -96,9 +96,12 @@ class PygameCanvas(Gtk.EventBox):
         _surface = pygame.transform.scale(self._screen, (width, height))
         pygame.image.save(_surface, _file_path)
 
-        f = open(_file_path, "rb")
-        preview = f.read()
-        f.close()
-        os.remove(_file_path)
+        if not os.path.exists(_file_path) :
+            return None
+        
+        with open(_file_path, "rb") as f :
+            preview = f.read()
+        
+        os.remove(_file_path) 
 
         return preview

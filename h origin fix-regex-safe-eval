@@ -1,0 +1,36 @@
+[33m9721338[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfix-regex-safe-eval[m[33m, [m[1;31morigin/fix-regex-safe-eval[m[33m)[m Fix preview file handling: check file existence before remove
+[33m3c246e6[m Disallow unary plus in equation validation
+[33m5e5a20a[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m Add NEWS
+[33me4ee7ed[m update help panel and add readme
+[33md63075d[m make calculate activity textbox accepts text input https://github.com/Bishoywadea/Broken-Calculator/issues/3
+[33mee04cac[m modify help icon
+[33m7f22656[m make help button GTK style as terminal activity
+[33m1ac06fd[m add help button
+[33m265807b[m pep8 formatting
+[33m8c18410[m Add license
+[33mcced2fd[m remove redundant code
+[33m6d16e15[m fix closing bug
+[33m7e231e5[m More advanced equation uniqueness checking
+[33m7f2fea2[m remove redundant code
+[33mb005bcf[m fix icon to be sugar style
+[33m7ec0764[m Fixes #2: Improve UI to follow sugar style
+[33medfa6be[m add toggle button
+[33mc755e4f[m add dark theme palette
+[33m34f3d60[m add menu buttons
+[33m5a526e4[m moving help button to good place
+[33mc97ade0[m enhance overlapped elements
+[33m159f4fd[m add stars animation
+[33m2f98579[m add completion message
+[33m09ccbc2[m add techer image
+[33mfb52777[m add equation panel
+[33m7c8877d[m enhance UI of target
+[33mf5201b9[m add equation submission logic and render UI components and keyboard input
+[33mb3b9e84[m add calc button event handling
+[33mf666ace[m add calc button class
+[33m204cee4[m add basic UI with the target
+[33md151c72[m add basic functionality to game manager
+[33ma8074c2[m add scoring and validators
+[33m48b0e83[m add  fancy menu
+[33mcbd5a8f[m Add configuration and basic UI structure
+[33m6cb534d[m starter files
+[33m9615fe6[m Initial commit
