@@ -29,6 +29,8 @@ from logic.game_manager import GameManager
 from view.ui import CalculatorUI
 from gettext import gettext as _
 
+import json
+
 
 class BrokenCalculator(Activity):
     def __init__(self, handle):
@@ -357,8 +359,48 @@ Scoring:
         self._update_ui_from_gamestate()
 
     def read_file(self, file_path):
-        pass
+        """Restore a previously saved game state from the Journal."""
+        
+        try:
+            with open(file_path, 'r') as f:
+                game_state = json.load(f)
+            
+            self.game.target_number    = game_state.get('target_number', 0)
+            self.game.equations        = game_state.get('equations', [])
+            self.game.current_equation = game_state.get('current_equation', '')
+            self.game.total_score      = game_state.get('total_score', 0)
+            self.game.game_completed   = game_state.get('game_completed', False)
+            self.game.broken_buttons   = game_state.get('broken_buttons', [])
+            
+            for value, button in self.ui.buttons.items():
+                button.set_sensitive(True)
+                button.get_style_context().remove_class('broken')
+            
+            for broken_value in self.game.broken_buttons:
+                if broken_value in self.ui.buttons:
+                    button = self.ui.buttons[broken_value]
+                    button.set_sensitive(False)
+                    button.get_style_context().add_class('broken')
+            
+            self._update_ui_from_gamestate()
+            
+        except (json.JSONDecodeError, KeyError, TypeError) as e:
+            print(f"Error loading game state: {e}")
+            self._on_new_game_clicked(None)
 
     def write_file(self, file_path):
+        """Save the current game state to the Journal."""
+        
+        game_state = {
+            'target_number':   self.game.target_number,
+            'equations':       self.game.equations,
+            'current_equation': self.game.current_equation,
+            'total_score':     self.game.total_score,
+            'game_completed':  self.game.game_completed,
+            'broken_buttons':  self.game.broken_buttons,
+        }
+        
         with open(file_path, 'w') as f:
-            f.write('')
+            json.dump(game_state, f)
+        
+        self.metadata['mime_type'] = 'text/plain'
