@@ -360,4 +360,5 @@ Scoring:
         pass
 
     def write_file(self, file_path):
-        pass
+        with open(file_path, 'w') as f:
+            f.write('')
