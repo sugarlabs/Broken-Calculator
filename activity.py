@@ -249,7 +249,14 @@ Scoring:
     def _on_entry_changed(self, entry):
         """Update internal state as user types."""
         if not self.game.game_completed:
-            self.game.current_equation = entry.get_text()
+            text = entry.get_text()
+            for broken in self.game.broken_buttons:
+                if str(broken) in text:
+                    text = text.replace(str(broken), "")
+                    entry.set_text(text)
+                    entry.set_position(-1)
+                    return
+            self.game.current_equation = text
 
     def _on_button_clicked(self, button):
         value = button.game_value
